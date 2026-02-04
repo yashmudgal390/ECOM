@@ -1,4 +1,23 @@
+import { useCart } from "../../context/cart-context";
+import { useNavigate } from "react-router-dom"; 
+import { findProductInCart } from "../../utils/findProductInCart";
+
 export const ProductCard = ({ product }) => {
+    const { cart, cartDispatch } = useCart();
+
+    const isProductInCart = findProductInCart(cart, product.id)
+    const navigate = useNavigate();
+
+    const onCartClick = (product) => {
+        !isProductInCart ?
+
+            cartDispatch({
+
+                type: 'ADD_TO_CART',
+                payload: { product }
+            }) : navigate('/cart')
+    }
+
     return (
         <div className=" w-72 bg-white roundedbg-sky-900 shadow- overflow-hidden border hover:shadow-2xl 
                 transition-shadow duration-300 ease-in-out hover:-translate-y-1">
@@ -19,14 +38,14 @@ export const ProductCard = ({ product }) => {
                     {product.title}
                 </h2>
 
-                
+
 
                 {/* Price */}
                 <div className="text-lg font-medium">
                     <span className="gfont-bold text-black">
                         {`Rs.${product.price}`}
                     </span>
-                   
+
                 </div>
 
                 {/* Button */}
@@ -41,13 +60,16 @@ export const ProductCard = ({ product }) => {
                     </button>
 
                     {/* Add to Cart */}
-                    <button className="flex items-center justify-center gap-2 h-10 px-4 
+                    <button onClick={() => onCartClick(product)} className="flex items-center justify-center gap-2 h-10 px-4 
                      bg-sky-900 hover:bg-sky-600 text-white rounded-md 
                      font-medium transition">
+
                         <span className="material-icons-outlined text-lg">
-                            shopping_cart
+                            {
+                                isProductInCart ? 'shopping_cart_checkout' : 'shopping_cart'
+                            }
                         </span>
-                        Add To Cart
+                        {isProductInCart ? 'Go To Cart' : 'Add to cart'}
                     </button>
 
                 </div>
