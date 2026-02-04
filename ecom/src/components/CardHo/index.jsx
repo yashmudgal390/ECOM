@@ -1,5 +1,12 @@
-
+import { useCart } from "../../context/cart-context"
 export const CardHo=({product})=>{
+  const {cartDispatch}=useCart();
+  const onRemoveClick=()=>{
+    cartDispatch({
+      type:'REMOVE_FROM_CART',
+      payload:{id:product.id}
+    })
+  }
     return(
         <div className="flex w-200 max-w-xl bg-white rounded-lg shadow-md overflow-hidden">
 
@@ -56,7 +63,7 @@ export const CardHo=({product})=>{
                         </span>
                     </button>
       
-      <button className="flex items-center justify-center gap-2 h-10 px-4 
+      <button onClick={()=>onRemoveClick()} className="flex items-center justify-center gap-2 h-10 px-4 
                      bg-sky-900 hover:bg-sky-600 text-white rounded-md 
                      font-medium transition">
         Remove From Cart
