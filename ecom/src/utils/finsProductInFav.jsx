@@ -1,0 +1,1 @@
+export const findProductInFav = (fav, id) => fav?.length > 0 && fav.some(product => product.id === id);
