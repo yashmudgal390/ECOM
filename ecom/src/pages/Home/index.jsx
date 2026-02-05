@@ -6,9 +6,8 @@ import { useCart } from "../../context/cart-context";
 
 export const Home=()=>{
     const[products,setProducts]=useState([]);
-    const {cart}=useCart();
-    console.log(cart);
-
+    const {cart,fav}=useCart();
+    
 
 
     useEffect(()=>{
