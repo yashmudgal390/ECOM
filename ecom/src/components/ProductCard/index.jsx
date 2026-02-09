@@ -1,26 +1,26 @@
 import { useCart } from "../../context/cart-context";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { findProductInCart } from "../../utils/findProductInCart";
 import { findProductInFav } from "../../utils/finsProductInFav";
 
 export const ProductCard = ({ product }) => {
-    const { cart,fav, cartDispatch } = useCart();
+    const { cart, fav, cartDispatch } = useCart();
 
     const isProductInCart = findProductInCart(cart, product.id);
-    const isProductInFav = findProductInFav(fav,product.id);
+    const isProductInFav = findProductInFav(fav, product.id);
     const navigate = useNavigate();
 
     const onFavClick = (product) => {
-    isProductInFav
-      ? cartDispatch({
-          type: "REMOVE_FROM_FAV",
-          payload: { id: product.id },
-        })
-      : cartDispatch({
-          type: "ADD_TO_FAV",
-          payload: { product },
-        });
-  };
+        isProductInFav
+            ? cartDispatch({
+                type: "REMOVE_FROM_FAV",
+                payload: { id: product.id },
+            })
+            : cartDispatch({
+                type: "ADD_TO_FAV",
+                payload: { product },
+            });
+    };
 
     const onCartClick = (product) => {
         !isProductInCart ?
@@ -66,13 +66,13 @@ export const ProductCard = ({ product }) => {
                 <div className="flex items-center justify-center gap-3 mt-3">
 
                     {/* Wishlist */}
-                     <button
-                        onClick={()=>onFavClick(product)}
+                    <button
+                        onClick={() => onFavClick(product)}
                         className={`flex items-center justify-center h-10 w-10 rounded-full transition
                         ${isProductInFav
-                            ? "bg-red-500 text-white"
-                            : "bg-sky-900 hover:bg-red-600 text-white"
-                        }`}
+                                ? "bg-red-500 text-white"
+                                : "bg-sky-900 hover:bg-red-600 text-white"
+                            }`}
                     >
                         <span className="material-icons-outlined text-lg">
                             favorite
